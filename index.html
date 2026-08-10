@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار تفاعلي - Science Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ====== شاشة البداية ====== -->
+    <div id="startScreen" class="screen">
+        <div class="container">
+            <div class="header">
+                <h1>🧪 Science Quiz Pro</h1>
+                <p>اختبار تفاعلي للطلاب</p>
+            </div>
+
+            <div class="form-group">
+                <label>👤 اسم الطالب</label>
+                <input type="text" id="studentName" placeholder="اكتب اسمك هنا">
+            </div>
+
+            <div class="form-group">
+                <label>📚 الصف الدراسي</label>
+                <select id="gradeSelect">
+                    <option value="">-- اختر الصف --</option>
+                    <option value="grade6">الصف السادس الابتدائي</option>
+                    <option value="prep1">الصف الأول الإعدادي</option>
+                    <option value="prep2">الصف الثاني الإعدادي</option>
+                    <option value="prep3">الصف الثالث الإعدادي</option>
+                    <option value="sec1">الصف الأول الثانوي</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>📖 الوحدة</label>
+                <select id="unitSelect">
+                    <option value="">-- اختر الوحدة --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>📝 الدرس</label>
+                <select id="lessonSelect">
+                    <option value="">-- اختر الدرس --</option>
+                </select>
+            </div>
+
+            <button id="startBtn" class="btn-start">🚀 ابدأ الاختبار</button>
+        </div>
+    </div>
+
+    <!-- ====== شاشة الاختبار ====== -->
+    <div id="quizScreen" class="screen" style="display:none;">
+        <div class="container">
+            <div class="quiz-header">
+                <div class="student-info">
+                    👤 <span id="studentLabel"></span>
+                </div>
+                <div class="question-info">
+                    السؤال <span id="questionNumber">1</span> / <span id="questionCount">10</span>
+                </div>
+                <div class="score-info">
+                    ⭐ <span id="liveScore">0</span>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progressBar" style="width:0%"></div>
+            </div>
+
+            <h2 id="questionText" class="question-text"></h2>
+
+            <div id="answersContainer" class="answers-container"></div>
+
+            <button id="nextBtn" class="btn-next" style="display:none;">➡️ السؤال التالي</button>
+        </div>
+    </div>
+
+    <!-- ====== شاشة النتيجة ====== -->
+    <div id="resultScreen" class="screen" style="display:none;">
+        <div class="container result-container">
+            <h1>🎉 انتهى الاختبار!</h1>
+            <div class="result-card">
+                <h2 id="resultName"></h2>
+                <h2 id="resultScore"></h2>
+                <h2 id="resultPercent"></h2>
+                <h2 id="resultGrade" class="result-grade"></h2>
+            </div>
+            <button id="restartBtn" class="btn-restart">🔄 اختبار جديد</button>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
