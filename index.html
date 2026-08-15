@@ -1,108 +1,451 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>اختبار تفاعلي - Science Quiz</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- ====== شاشة البداية ====== -->
+    <!-- =====================================================
+         شاشة البداية
+    ====================================================== -->
+
     <div id="startScreen" class="screen">
+
         <div class="container">
-        <div class="header">
-    <h1>🧪 Science Quiz Pro</h1>
-    <p>اختبار تفاعلي للطلاب</p>
-    
-    <!-- ====== صورة المهندس ====== -->
-    <div class="creator-photo">
-    <img src="./myphoto.png" alt="أعرف من هو">
-    </div>
-    
-    <!-- ====== اسم المهندس ====== -->
-    <div class="creator-info">
-        <p>👨‍🏫 إعداد: <span class="creator-name">المهندس / أشرف موسى</span></p>
-    </div>
-</div>   
 
-            <div class="form-group">
-                <label>👤 اسم الطالب</label>
-                <input type="text" id="studentName" placeholder="اكتب اسمك هنا">
+            <div class="header">
+
+                <h1>🧪 Science Quiz Pro</h1>
+
+                <p>اختبار تفاعلي للطلاب</p>
+
+                <div class="creator-photo">
+
+                    <img
+                        src="myphoto.png"
+                        alt="صورة المهندس أشرف موسى"
+                    >
+
+                </div>
+
+                <div class="creator-info">
+
+                    <p>
+                        👨‍🏫 إعداد:
+                        <span class="creator-name">
+                            المهندس / أشرف موسى
+                        </span>
+                    </p>
+
+                </div>
+
             </div>
 
-            <div class="form-group">
-                <label>📚 الصف الدراسي</label>
-                <select id="gradeSelect">
-                    <option value="">-- اختر الصف --</option>
-                    <option value="grade6">الصف السادس الابتدائي</option>
-                    <option value="prep1">الصف الأول الإعدادي</option>
-                    <option value="prep2">الصف الثاني الإعدادي</option>
-                    <option value="prep3">الصف الثالث الإعدادي</option>
-                    <option value="sec1">الصف الأول الثانوي</option>
-                </select>
-            </div>
+
+            <!-- =================================================
+                 اسم الطالب
+            ================================================== -->
 
             <div class="form-group">
-                <label>📖 الوحدة</label>
-                <select id="unitSelect">
-                    <option value="">-- اختر الوحدة --</option>
-                </select>
+
+                <label>
+                    👤 اسم الطالب
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="اكتب اسمك هنا"
+                >
+
             </div>
 
-            <div class="form-group">
-                <label>📝 الدرس</label>
-                <select id="lessonSelect">
-                    <option value="">-- اختر الدرس --</option>
-                </select>
+
+            <!-- =================================================
+                 الاختبار التفاعلي
+            ================================================== -->
+
+            <div
+                style="
+                    border:2px solid #667eea;
+                    border-radius:15px;
+                    padding:15px;
+                    margin-bottom:20px;
+                "
+            >
+
+                <h3
+                    style="
+                        color:#667eea;
+                        text-align:center;
+                        margin-bottom:15px;
+                    "
+                >
+                    📚 الاختبار التفاعلي
+                </h3>
+
+
+                <div class="form-group">
+
+                    <label>
+                        📚 الصف الدراسي
+                    </label>
+
+                    <select id="gradeSelect">
+
+                        <option value="">
+                            -- اختر الصف --
+                        </option>
+
+                        <option value="grade6">
+                            الصف السادس الابتدائي
+                        </option>
+
+                        <option value="prep1">
+                            الصف الأول الإعدادي
+                        </option>
+
+                        <option value="prep2">
+                            الصف الثاني الإعدادي
+                        </option>
+
+                        <option value="prep3">
+                            الصف الثالث الإعدادي
+                        </option>
+
+                        <option value="sec1">
+                            الصف الأول الثانوي
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        📖 الوحدة
+                    </label>
+
+                    <select id="unitSelect">
+
+                        <option value="">
+                            -- اختر الوحدة --
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        📝 الدرس
+                    </label>
+
+                    <select id="lessonSelect">
+
+                        <option value="">
+                            -- اختر الدرس --
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    id="startBtn"
+                    class="btn-start"
+                >
+                    🚀 ابدأ الاختبار
+                </button>
+
             </div>
 
-            <button id="startBtn" class="btn-start">🚀 ابدأ الاختبار</button>
+
+            <!-- =================================================
+                 الامتحان الكامل
+            ================================================== -->
+
+            <div
+                style="
+                    border:2px solid #28a745;
+                    border-radius:15px;
+                    padding:15px;
+                "
+            >
+
+                <h3
+                    style="
+                        color:#28a745;
+                        text-align:center;
+                        margin-bottom:15px;
+                    "
+                >
+                    📝 الامتحان
+                </h3>
+
+
+                <div class="form-group">
+
+                    <label>
+                        📝 اختر الامتحان
+                    </label>
+
+                    <select id="examSelect">
+
+                        <option value="">
+                            -- اختر الامتحان --
+                        </option>
+
+                        <option value="grade6">
+                            الصف السادس الابتدائي
+                        </option>
+
+                        <option value="prep1">
+                            الصف الأول الإعدادي
+                        </option>
+
+                        <option value="prep2">
+                            الصف الثاني الإعدادي
+                        </option>
+
+                        <option value="prep2_exam">
+                            الصف الثاني الإعدادي (امتحان)
+                        </option>
+
+                        <option value="prep3">
+                            الصف الثالث الإعدادي
+                        </option>
+
+                        <option value="sec1">
+                            الصف الأول الثانوي
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    id="examStartBtn"
+                    class="btn-start"
+                    style="
+                        background:
+                        linear-gradient(
+                            135deg,
+                            #28a745 0%,
+                            #20c997 100%
+                        );
+                    "
+                >
+                    📝 ابدأ الامتحان
+                </button>
+
+
+                <div
+                    style="
+                        text-align:center;
+                        margin-top:15px;
+                    "
+                >
+
+                    <button
+                        onclick="showExamPaper()"
+                        class="btn-paper"
+                    >
+                        📄 عرض الامتحان كامل
+                    </button>
+
+                </div>
+
+            </div>
+
         </div>
+
     </div>
 
-    <!-- ====== شاشة الاختبار ====== -->
-    <div id="quizScreen" class="screen" style="display:none;">
+
+    <!-- =====================================================
+         شاشة الاختبار
+    ====================================================== -->
+
+    <div
+        id="quizScreen"
+        class="screen"
+        style="display:none;"
+    >
+
         <div class="container">
+
             <div class="quiz-header">
+
                 <div class="student-info">
-                    👤 <span id="studentLabel"></span>
+
+                    👤
+                    <span id="studentLabel"></span>
+
                 </div>
+
+
                 <div class="question-info">
-                    السؤال <span id="questionNumber">1</span> / <span id="questionCount">10</span>
+
+                    السؤال
+
+                    <span id="questionNumber">
+                        1
+                    </span>
+
+                    /
+
+                    <span id="questionCount">
+                        10
+                    </span>
+
                 </div>
+
+
                 <div class="score-info">
-                    ⭐ <span id="liveScore">0</span>
+
+                    ⭐
+                    <span id="liveScore">
+                        0
+                    </span>
+
                 </div>
+
             </div>
+
 
             <div class="progress-bar">
-                <div id="progressBar" style="width:0%"></div>
+
+                <div
+                    id="progressBar"
+                    style="width:0%"
+                ></div>
+
             </div>
 
-            <h2 id="questionText" class="question-text"></h2>
 
-            <div id="answersContainer" class="answers-container"></div>
+            <h2
+                id="questionText"
+                class="question-text"
+            ></h2>
 
-            <button id="nextBtn" class="btn-next" style="display:none;">➡️ السؤال التالي</button>
+
+            <div
+                id="answersContainer"
+                class="answers-container"
+            ></div>
+
+
+            <button
+                id="nextBtn"
+                class="btn-next"
+                style="display:none;"
+            >
+                ➡️ السؤال التالي
+            </button>
+
         </div>
+
     </div>
 
-    <!-- ====== شاشة النتيجة ====== -->
-    <div id="resultScreen" class="screen" style="display:none;">
+
+    <!-- =====================================================
+         شاشة النتيجة
+    ====================================================== -->
+
+    <div
+        id="resultScreen"
+        class="screen"
+        style="display:none;"
+    >
+
         <div class="container result-container">
-            <h1>🎉 انتهى الاختبار!</h1>
+
+            <h1>
+                🎉 انتهى الاختبار!
+            </h1>
+
+
             <div class="result-card">
+
                 <h2 id="resultName"></h2>
+
                 <h2 id="resultScore"></h2>
+
                 <h2 id="resultPercent"></h2>
-                <h2 id="resultGrade" class="result-grade"></h2>
+
+                <h2
+                    id="resultGrade"
+                    class="result-grade"
+                ></h2>
+
             </div>
-            <button id="restartBtn" class="btn-restart">🔄 اختبار جديد</button>
+
+
+            <!-- =================================================
+                 أزرار النتيجة
+            ================================================== -->
+
+            <div
+                style="
+                    display:flex;
+                    gap:15px;
+                    justify-content:center;
+                    flex-wrap:wrap;
+                    margin-top:20px;
+                "
+            >
+
+                <button
+                    id="restartBtn"
+                    class="btn-restart"
+                >
+                    🔄 اختبار جديد
+                </button>
+
+
+             <button
+    onclick="sendAnswers()"
+    class="btn-send"
+>
+    📱 إرسال النتيجة عبر واتساب
+</button>  
+
+                <button
+                    onclick="copyResult()"
+                    class="btn-copy"
+                >
+                    📋 نسخ النتيجة
+                </button>
+
+            </div>
+
         </div>
+
     </div>
 
-    <script src="questions.js"></script>
-    <script src="script.js"></script>
+
+    <!-- =====================================================
+         ملفات البيانات
+    ====================================================== -->
+
+ <script src="questions.js"></script>
+<script src="examQuestions.js"></script>
+<script src="script.js"></script>
+  
 </body>
+
 </html>
