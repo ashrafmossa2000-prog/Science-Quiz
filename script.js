@@ -101,7 +101,9 @@ document.getElementById('startBtn').addEventListener('click', function() {
     showQuestion();
 });
 
-// ====== بدء الامتحان ======
+// =============================================
+// بدء الامتحان (من examQuestions.js)
+// =============================================
 document.getElementById('examStartBtn').addEventListener('click', function() {
     const name = document.getElementById('studentName').value.trim();
     const grade = document.getElementById('examSelect').value;
@@ -116,22 +118,30 @@ document.getElementById('examStartBtn').addEventListener('click', function() {
         return;
     }
     
+    // ====== جلب الأسئلة من examQuestions ======
     let questions;
-    let unit, lesson;
-    
-    // تحديد الوحدة والدرس حسب الامتحان
-    if (grade === 'prep2_exam') {
-        unit = 'الوحدة الأولى';
-        lesson = 'الامتحان';
-    } else {
-        unit = 'الوحدة الأولى';
-        lesson = 'الدرس الأول';
-    }
+    let examTitle = '';
     
     try {
-        questions = questionsData[grade].units[unit].lessons[lesson];
+        // التحقق من وجود examQuestions
+        if (typeof examQuestions === 'undefined') {
+            alert('⚠️ ملف examQuestions.js لم يتم تحميله');
+            console.error('examQuestions غير موجود');
+            return;
+        }
+        
+        const examData = examQuestions[grade];
+        if (!examData) {
+            alert('⚠️ لا توجد أسئلة لهذا الامتحان');
+            return;
+        }
+        
+        questions = examData.questions;
+        examTitle = examData.title || 'الامتحان';
+        
     } catch (e) {
-        alert('⚠️ لا توجد أسئلة لهذا الامتحان');
+        alert('⚠️ حدث خطأ في تحميل الأسئلة');
+        console.error(e);
         return;
     }
     
@@ -140,6 +150,7 @@ document.getElementById('examStartBtn').addEventListener('click', function() {
         return;
     }
     
+    // ====== بدء الاختبار ======
     currentQuestions = questions;
     currentIndex = 0;
     score = 0;
