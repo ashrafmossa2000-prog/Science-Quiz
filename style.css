@@ -442,3 +442,20 @@ body {
     font-size: 14px;
     margin: 3px 0;
 }
+/* ====== زر PDF الجنب ====== */
+.btn-print-pdf {
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #6c757d 0%, #343a40 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-print-pdf:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(108, 117, 125, 0.4);
+}
