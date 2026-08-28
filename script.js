@@ -1,3 +1,51 @@
+
+/* ===== نظام الدخول والحماية ===== */
+
+// قائمة الأكواد المسموح بها (غيرها بأكوادك الخاصة)
+const validCodes = {
+      "AAA002": "ايه اشرف",
+    "AAA003": "اياد اشرف",
+    "AAA004": "اروى اشرف",
+    "AAA005": "الاء اشرف",
+    "AAA001": "اشرف موسى"
+};
+
+// عناصر شاشة الدخول
+const loginScreen = document.getElementById('loginScreen');
+const startScreen = document.getElementById('startScreen');
+const loginBtn = document.getElementById('loginBtn');
+const loginStudentName = document.getElementById('loginStudentName');
+const loginCode = document.getElementById('loginCode');
+const loginError = document.getElementById('loginError');
+
+// عند الضغط على زر الدخول
+loginBtn.addEventListener('click', function() {
+    const name = loginStudentName.value.trim();
+    const code = loginCode.value.trim().toUpperCase();
+
+    // التحقق من الاسم والكود
+    if (validCodes[code] && validCodes[code] === name) {
+        // الدخول صحيح
+        loginError.style.display = 'none';
+        loginScreen.style.display = 'none';
+        startScreen.style.display = 'flex'; // إظهار شاشة البداية
+        
+        // وضع اسم الطالب في الترحيب وفي شاشة النتيجة
+        document.getElementById('welcomeName').textContent = name;
+        document.getElementById('studentName').value = name;
+        document.getElementById('studentLabel').textContent = name;
+        document.getElementById('resultName').textContent = name;
+    } else {
+        // خطأ في الدخول
+        loginError.style.display = 'block';
+        loginError.textContent = "❌ كود الدخول أو الاسم غير صحيح، حاول مرة أخرى.";
+    }
+});
+
+/* =============================================
+   (من هنا يبدأ الكود القديم الخاص بك script.js)
+   ============================================= */
+
 // ====== المتغيرات العامة ======
 let currentQuestions = [];
 let currentIndex = 0;

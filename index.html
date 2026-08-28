@@ -5,15 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اختبار تفاعلي - Science Quiz</title>
     <link rel="stylesheet" href="style.css">
+    <!-- إضافة خط عربي احترافي -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ===== شاشة البداية ===== -->
-    <div id="startScreen" class="screen">
+    <!-- ===== شاشة تسجيل الدخول الجديدة ===== -->
+    <div id="loginScreen" class="screen">
+        <div class="container login-container">
+            <div style="text-align:center; margin-bottom:20px;">
+                <img src="myphoto.png" alt="صورة المهندس أشرف موسى" style="width:100px; height:100px; border-radius:50%; margin-bottom:10px;" onerror="this.style.display='none'">
+                <h1 style="color:#667eea; margin:0;">🔐 منصة الاختبارات</h1>
+                <p style="color:#555;">تم إنشاء هذا الاختبار بواسطة: <strong>المهندس / أشرف موسى</strong></p>
+            </div>
+
+            <div class="form-group">
+                <label>👤 اسم الطالب</label>
+                <input type="text" id="loginStudentName" placeholder="اكتب اسمك الثلاثي هنا">
+            </div>
+
+            <div class="form-group">
+                <label>🔑 كود الدخول السري</label>
+                <input type="password" id="loginCode" placeholder="مثال: SCI001">
+            </div>
+
+            <button id="loginBtn" class="btn-start" style="width:100%; margin-top:10px;">🚀 دخول وبدء الاختبار</button>
+            
+            <p id="loginError" style="color:red; text-align:center; font-weight:bold; margin-top:15px; display:none;">❌ كود الدخول أو الاسم غير صحيح، حاول مرة أخرى.</p>
+        </div>
+    </div>
+
+    <!-- ===== شاشة البداية (المحتوى الأصلي) ===== -->
+    <div id="startScreen" class="screen" style="display:none;">
         <div class="container">
             <div class="header">
                 <h1>🧪 Science Quiz Pro</h1>
-                <p>اختبار تفاعلي للطلاب</p>
+                <p>مرحباً بك يا <span id="welcomeName" style="color:#667eea; font-weight:bold;"></span> 🎓</p>
                 <div class="creator-photo">
                     <img src="myphoto.png" alt="صورة المهندس أشرف موسى" onerror="this.style.display='none'">
                 </div>
@@ -23,7 +50,7 @@
             </div>
 
             <!-- اسم الطالب -->
-            <div class="form-group">
+            <div class="form-group" style="display:none;">
                 <label>👤 اسم الطالب</label>
                 <input type="text" id="studentName" placeholder="اكتب اسمك هنا">
             </div>
@@ -113,7 +140,7 @@
         </div>
     </div>
 
-    <!-- ===== ملفات البيانات (نفسها من غير تغيير) ===== -->
+    <!-- ===== ملفات البيانات ===== -->
     <script src="questions.js"></script>
     <script src="examQuestions.js"></script>
     <script src="script.js"></script>
