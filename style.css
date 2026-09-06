@@ -459,3 +459,57 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(108, 117, 125, 0.4);
 }
+
+/* ============================================================ */
+/* ====== NEW: تنسيق أرقام الهواتف (دعاية) ====== */
+/* ============================================================ */
+
+.phone-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px 20px;
+    margin-top: 8px;
+}
+
+.phone-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #f0f4ff;
+    padding: 5px 16px 5px 18px;
+    border-radius: 30px;
+    border: 1px solid #b8cff0;
+    font-size: 15px;
+    font-weight: 500;
+    color: #00337a;
+    direction: ltr;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.phone-item i {
+    font-size: 17px;
+    color: #0077b6;
+    margin-left: 3px;
+}
+
+.phone-item .num {
+    direction: ltr;
+    unicode-bidi: embed;
+    font-weight: 600;
+    color: #0a2647;
+    letter-spacing: 0.3px;
+}
+
+/* تنسيق إضافي لشاشة الدخول */
+.login-phone {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #c5d6ec;
+}
+
+/* تنسيق إضافي لشاشة البداية */
+.start-phone {
+    margin-top: 6px;
+}

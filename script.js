@@ -1,4 +1,3 @@
-
 /* ===== نظام الدخول والحماية ===== */
 
 // قائمة الأكواد المسموح بها (غيرها بأكوادك الخاصة)
@@ -150,7 +149,12 @@ function sendAnswers() {
 ${new Date().toLocaleString('ar-EG')}
 
 👨‍🏫 إعداد:
-المهندس / أشرف موسى`;
+المهندس / أشرف موسى
+
+📞 للتواصل:
+01110547129 - 01100429783`;
+
+    // ✅ تم التحديث: الرقم المستخدم هو 201100429783 (الرقم الثاني بدون الصفر الأول)
     const phone = '201100429783';
     window.location.href = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
 }
@@ -185,7 +189,10 @@ function copyResult() {
 ${new Date().toLocaleString('ar-EG')}
 
 👨‍🏫 إعداد:
-المهندس / أشرف موسى`;
+المهندس / أشرف موسى
+
+📞 للتواصل:
+01110547129 - 01100429783`;
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(message).then(() => alert('✅ تم نسخ النتيجة بنجاح!')).catch(() => fallbackCopy(message));
     } else { fallbackCopy(message); }
@@ -235,6 +242,14 @@ function showExamPaper() {
 
 // ============================================================
 // ✅ الدالة الجديدة: طباعة الأسئلة PDF
+// ============================================================
+
+// ============================================================
+// ✅ الدالة الجديدة: طباعة الأسئلة PDF مع الهيدر والفوتر
+// ============================================================
+
+// ============================================================
+// ✅ الدالة الجديدة: طباعة الأسئلة PDF مع الفوتر فقط (بدون هيدر)
 // ============================================================
 
 function printQuestionsAsPDF() {
@@ -321,7 +336,25 @@ function printQuestionsAsPDF() {
             margin: auto; 
             line-height: 2;
             background: #fff;
+            padding-bottom: 50px; /* مساحة للفوتر في الأسفل فقط */
         }
+        
+        /* --- الفوتر الثابت (أسفل كل ورقة) --- */
+        .print-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #e8ebff;
+            border-top: 2px solid #667eea;
+            text-align: center;
+            padding: 10px 0;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+            z-index: 1000;
+        }
+
         .header-info { 
             text-align: center; 
             margin-bottom: 20px; 
@@ -390,25 +423,25 @@ function printQuestionsAsPDF() {
             font-weight: bold;
             letter-spacing: 3px;
         }
-        .footer { 
-            text-align: center; 
-            margin-top: 30px; 
-            color: #888; 
-            border-top: 1px solid #ccc; 
-            padding-top: 15px; 
-            font-size: 0.95em;
-        }
+
+        /* إعدادات الطباعة */
         @media print { 
-            body { padding: 12px; } 
+            body { padding: 12px; padding-bottom: 50px; } 
             .question-block { page-break-inside: avoid; }
             .answer-space { border-bottom: 1px solid #000; }
             .section-title { background: #e8ebff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            
+            /* ضمان ظهور الفوتر في كل صفحة مطبوعة */
+            .print-footer {
+                position: fixed;
+                display: block;
+            }
         }
     </style>
     </head><body>`);
     
     // ============================================================
-    // ✅ رأس الصفحة
+    // ✅ رأس الصفحة الأول (معلومات الاختبار - يظهر مرة واحدة فقط في أول ورقة)
     // ============================================================
     win.document.write(`
         <div class="header-info">
@@ -494,9 +527,14 @@ function printQuestionsAsPDF() {
     });
     
     // ============================================================
-    // ✅ تذييل الصفحة
+    // ✅ الفوتر الثابت (يظهر أسفل كل ورقة)
     // ============================================================
-    win.document.write(`<div class="footer">👨‍🏫 إعداد: المهندس / أشرف موسى</div>`);
+    win.document.write(`
+        <div class="print-footer">
+            إعداد المهندس/ اشرف موسى &nbsp;&nbsp;|&nbsp;&nbsp; 📞 01110547129 - 01100429783
+        </div>
+    `);
+    
     win.document.write('</body></html>');
     win.document.close();
     win.focus();
