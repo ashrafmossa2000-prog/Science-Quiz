@@ -159,6 +159,10 @@
                 <button id="restartBtn" class="btn-restart">🔄 اختبار جديد</button>
                 <button onclick="sendAnswers()" class="btn-send">📱 إرسال النتيجة عبر واتساب</button>
                 <button onclick="copyResult()" class="btn-copy">📋 نسخ النتيجة</button>
+                <!-- ✅ جديد: زر مراجعة الأخطاء -->
+                <button id="reviewMistakesBtn" class="btn-review" style="display:none;" onclick="showWrongQuestions()">📋 مراجعة الأخطاء</button>
+                <!-- ✅ جديد: زر إرسال الأخطاء عبر واتساب -->
+                <button id="sendWrongBtn" class="btn-send-wrong" style="display:none;" onclick="sendWrongQuestionsViaWhatsApp()">📱 إرسال الأخطاء عبر واتساب</button>
             </div>
         </div>
     </div>

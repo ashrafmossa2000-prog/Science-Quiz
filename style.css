@@ -304,6 +304,7 @@ body {
     font-weight: bold;
     font-size: 1.1em;
 }
+
 /* ====== أزرار النتيجة ====== */
 .btn-send {
     padding: 14px 40px;
@@ -337,25 +338,6 @@ body {
 .btn-copy:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(23, 162, 184, 0.4);
-}
-
-/* ====== زر عرض الامتحان ====== */
-.btn-paper {
-    padding: 14px 40px;
-    background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-    width: 100%;
-}
-
-.btn-paper:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(253, 126, 20, 0.4);
 }
 
 /* ====== زر عرض الامتحان ====== */
@@ -442,6 +424,7 @@ body {
     font-size: 14px;
     margin: 3px 0;
 }
+
 /* ====== زر PDF الجنب ====== */
 .btn-print-pdf {
     padding: 15px 20px;
@@ -461,7 +444,7 @@ body {
 }
 
 /* ============================================================ */
-/* ====== NEW: تنسيق أرقام الهواتف (دعاية) ====== */
+/* ====== تنسيق أرقام الهواتف (دعاية) ====== */
 /* ============================================================ */
 
 .phone-links {
@@ -512,4 +495,44 @@ body {
 /* تنسيق إضافي لشاشة البداية */
 .start-phone {
     margin-top: 6px;
+}
+
+/* ============================================================ */
+/* ✅ جديد: زر مراجعة الأخطاء */
+/* ============================================================ */
+.btn-review {
+    padding: 14px 40px;
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-review:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(220, 53, 69, 0.4);
+}
+
+/* ============================================================ */
+/* ✅ جديد: زر إرسال الأخطاء عبر واتساب */
+/* ============================================================ */
+.btn-send-wrong {
+    padding: 14px 40px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-send-wrong:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
 }
