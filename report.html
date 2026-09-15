@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تقرير الاختبار</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- LZString -->
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 25px;
+        }
+
+        .status {
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            line-height: 1.8;
+            word-break: break-word;
+        }
+
+        .success { background: #ecfdf5; border: 2px solid #10b981; color: #065f46; }
+        .error   { background: #fef2f2; border: 2px solid #ef4444; color: #991b1b; }
+        .info    { background: #eff6ff; border: 2px solid #3b82f6; color: #1e40af; }
+        .warning { background: #fffbeb; border: 2px solid #f59e0b; color: #92400e; }
+
+        .data-box {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            direction: ltr;
+            text-align: left;
+            max-height: 300px;
+            overflow: auto;
+            font-family: monospace;
+            font-size: 13px;
+        }
+
+        /* ✅ قسم التشخيص مخفي افتراضياً */
+        #diagnostics {
+            display: none;
+        }
+
+        .report { display: none; }
+
+        .report-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border-right: 5px solid #667eea;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .row:last-child { border-bottom: none; }
+
+        .label { font-weight: 700; color: #666; }
+        .value { font-weight: 800; color: #222; }
+
+        .footer {
+            text-align: center;
+            color: #888;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        /* ✅ زر طلب الأخطاء من المعلم */
+        .request-btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05em;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            margin-top: 10px;
+            transition: transform 0.2s;
+        }
+
+        .request-btn:hover {
+            transform: scale(1.03);
+            background: #1faa52;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .container { padding: 18px; }
+            .row { flex-direction: column; gap: 3px; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📋 تقرير الاختبار</h1>
+
+    <!-- قسم التشخيص (يظهر فقط عند حدوث خطأ) -->
+    <div id="diagnostics"></div>
+
+    <!-- قسم التقرير (يظهر عند النجاح) -->
+    <div id="report" class="report">
+
+        <div class="report-card">
+
+            <div class="row">
+                <span class="label">👤 الطالب</span>
+                <span class="value" id="student"></span>
+            </div>
+
+            <div class="row">
+                <span class="label">📱 الهاتف</span>
+                <span class="value" id="phone"></span>
+            </div>
+
+            <div class="row">
+                <span class="label">📚 الصف</span>
+                <span class="value" id="grade"></span>
+            </div>
+
+            <div class="row">
+                <span class="label">📖 الوحدة</span>
+                <span class="value" id="unit"></span>
+            </div>
+
+            <div class="row">
+                <span class="label">📝 الدرس</span>
+                <span class="value" id="lesson"></span>
+            </div>
+
+            <div class="row">
+                <span class="label">🏆 الدرجة</span>
+                <span class="value" id="score"></span>
+            </div>
+
+            <div class="row">
+                <span class="label">📈 النسبة</span>
+                <span class="value" id="percent"></span>
+            </div>
+
+            <div class="row">
+                <span class="label">⏱️ الوقت</span>
+                <span class="value" id="time"></span>
+            </div>
+
+            <div class="row">
+                <span class="label">🕐 التاريخ</span>
+                <span class="value" id="date"></span>
+            </div>
+
+        </div>
+
+        <div id="wrongQuestions"></div>
+
+    </div>
+
+    <div class="footer">
+        👨‍🏫 إعداد: المهندس / أشرف موسى<br>
+        📞 01110547129 - 01100429783
+    </div>
+
+</div>
+
+
+<script>
+
+    // =========================================================
+    // أدوات التشخيص (تظهر فقط عند الخطأ)
+    // =========================================================
+
+    const diagnostics = document.getElementById('diagnostics');
+
+    function addStatus(type, title, message) {
+        const div = document.createElement('div');
+        div.className = 'status ' + type;
+        div.innerHTML = '<strong>' + title + '</strong><br>' + message;
+        diagnostics.appendChild(div);
+
+        // ✅ إظهار التشخيص فقط عند حدوث خطأ
+        if (type === 'error') {
+            diagnostics.style.display = 'block';
+        }
+    }
+
+    // =========================================================
+    // حماية النصوص
+    // =========================================================
+
+    function escapeHtml(value) {
+        if (value === null || value === undefined) {
+            return '';
+        }
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    // =========================================================
+    // استخراج البيانات من الرابط (?data= أو #data=)
+    // =========================================================
+
+    function extractEncodedData() {
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const fromQuery = params.get('data');
+            if (fromQuery) {
+                return { encoded: fromQuery, source: 'query string (?data=)' };
+            }
+        } catch (e) {
+            console.warn('URLSearchParams error:', e);
+        }
+
+        const hash = window.location.hash;
+        if (hash && hash.includes('data=')) {
+            const start = hash.indexOf('data=') + 5;
+            const fromHash = hash.substring(start);
+            if (fromHash) {
+                return { encoded: fromHash, source: 'hash (#data=)' };
+            }
+        }
+
+        return { encoded: null, source: null };
+    }
+
+    // =========================================================
+    // قراءة البيانات وعرض التقرير
+    // =========================================================
+
+    function diagnoseReport() {
+
+        try {
+
+            const { encoded, source } = extractEncodedData();
+
+            if (!encoded) {
+                addStatus(
+                    'error',
+                    '❌ لا توجد بيانات في الرابط',
+                    'لم يتم العثور على data في الرابط.<br>' +
+                    'تأكد من فتح الرابط كاملاً كما وصل من واتساب.'
+                );
+                return;
+            }
+
+            if (typeof LZString === 'undefined') {
+                addStatus(
+                    'error',
+                    '❌ مكتبة LZString غير محملة',
+                    'تأكد من اتصالك بالإنترنت.'
+                );
+                return;
+            }
+
+            let decoded;
+            try {
+                decoded = LZString.decompressFromEncodedURIComponent(encoded);
+            } catch (decodeError) {
+                addStatus(
+                    'error',
+                    '❌ خطأ أثناء فك ضغط LZString',
+                    String(decodeError)
+                );
+                return;
+            }
+
+            if (!decoded) {
+                try {
+                    decoded = LZString.decompress(encoded);
+                } catch (e) { /* تجاهل */ }
+            }
+
+            if (!decoded) {
+                addStatus(
+                    'error',
+                    '❌ فشل فك ضغط البيانات',
+                    'البيانات تالفة أو غير متوافقة.'
+                );
+                return;
+            }
+
+            let data;
+            try {
+                data = JSON.parse(decoded);
+            } catch (jsonError) {
+                addStatus(
+                    'error',
+                    '❌ JSON غير صالح',
+                    String(jsonError)
+                );
+                return;
+            }
+
+            // =============================================
+            // عرض البيانات
+            // =============================================
+
+            document.getElementById('student').textContent = data.student || '';
+            document.getElementById('phone').textContent   = data.phone   || '';
+            document.getElementById('grade').textContent   = data.grade   || '';
+            document.getElementById('unit').textContent    = data.unit    || '';
+            document.getElementById('lesson').textContent  = data.lesson  || '';
+            document.getElementById('score').textContent   = (data.score ?? 0) + ' من ' + (data.total ?? 0);
+            document.getElementById('percent').textContent = (data.percent ?? 0) + '%';
+            document.getElementById('time').textContent    = data.time    || '';
+            document.getElementById('date').textContent    = data.date    || '';
+
+            // =============================================
+            // الأسئلة الخاطئة
+            // =============================================
+
+            const wrongContainer = document.getElementById('wrongQuestions');
+
+            if (Array.isArray(data.wrongQuestions) && data.wrongQuestions.length > 0) {
+
+                const totalWrong = data.totalWrong || data.wrongQuestions.length;
+                const shownWrong = data.wrongQuestions.length;
+
+                let wrongHtml =
+                    '<div class="report-card">' +
+                    '<h3 style="color:#ef4444;">' +
+                    '❌ الأخطاء: ' + totalWrong +
+                    (shownWrong < totalWrong 
+                        ? ' <span style="font-size:0.7em;color:#666;">(يظهر ' + shownWrong + ' فقط في الرابط)</span>' 
+                        : '') +
+                    '</h3>';
+
+                data.wrongQuestions.forEach(function (q, index) {
+                    wrongHtml +=
+                        '<div style="' +
+                        'margin-top:15px;' +
+                        'padding:15px;' +
+                        'background:#fff;' +
+                        'border-radius:10px;' +
+                        'border-right:5px solid #ef4444;' +
+                        '">' +
+
+                        '<strong>سؤال ' + (index + 1) + '</strong><br><br>' +
+
+                        '📝 ' + escapeHtml(q.question) + '<br><br>' +
+
+                        '❌ إجابة الطالب: ' + escapeHtml(q.studentAnswer) + '<br><br>' +
+
+                        '✅ الإجابة الصحيحة: ' + escapeHtml(q.correctAnswer) +
+
+                        '</div>';
+                });
+
+                wrongHtml += '</div>';
+
+                // ✅ إضافة تنبيه + زر طلب الأخطاء من المعلم
+                if (shownWrong < totalWrong) {
+                    const teacherPhone = '201100429783';
+                    const studentNameVal = data.student || 'طالب';
+                    const subjectVal = data.subject || '';
+                    const gradeVal = data.grade || '';
+                    const lessonVal = data.lesson || '';
+                    const remainingCount = totalWrong - shownWrong;
+
+                    const requestMessage =
+                        'السلام عليكم ورحمة الله وبركاته\n\n' +
+                        'أنا الطالب: ' + studentNameVal + '\n' +
+                        'المادة: ' + subjectVal + '\n' +
+                        'الصف: ' + gradeVal + '\n' +
+                        'الدرس: ' + lessonVal + '\n\n' +
+                        'أرجو إرسال باقي الأخطاء (' + remainingCount + ' خطأ) كاملة.\n\n' +
+                        'شكراً جزيلاً 🌹';
+
+                    const waLink = 'https://wa.me/' + teacherPhone + '?text=' + encodeURIComponent(requestMessage);
+
+                    wrongHtml +=
+                        '<div class="status warning" style="margin-top:15px;text-align:center;">' +
+                        '⚠️ يوجد <strong>' + remainingCount + '</strong> خطأ إضافي لم يظهر هنا بسبب حجم الرابط.<br>' +
+                        'اضغط الزر التالي لطلب باقي الأخطاء من المعلم عبر واتساب:' +
+                        '<br>' +
+                        '<a href="' + waLink + '" target="_blank" class="request-btn">📩 اطلب باقي الأخطاء من المعلم</a>' +
+                        '</div>';
+                }
+
+                wrongContainer.innerHTML = wrongHtml;
+
+            } else {
+                wrongContainer.innerHTML =
+                    '<div class="status success">' +
+                    '🎉 لا توجد أخطاء. أحسنت!' +
+                    '</div>';
+            }
+
+            // =============================================
+            // ✅ إخفاء التشخيص نهائياً + إظهار التقرير
+            // =============================================
+
+            diagnostics.style.display = 'none';
+            document.getElementById('report').style.display = 'block';
+
+        } catch (error) {
+            addStatus(
+                'error',
+                '❌ خطأ غير متوقع',
+                String(error)
+            );
+            console.error('REPORT ERROR:', error);
+        }
+    }
+
+    // =========================================================
+    // بدء التشخيص
+    // =========================================================
+
+    window.addEventListener('DOMContentLoaded', function () {
+        diagnoseReport();
+    });
+
+</script>
+
+</body>
+</html>
