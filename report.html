@@ -108,7 +108,7 @@
             border-top: 1px solid #ddd;
         }
 
-        /* ✅ زر طلب الأخطاء من المعلم */
+        /* ✅ زر الطلب / الإرسال */
         .request-btn {
             display: inline-block;
             padding: 14px 28px;
@@ -345,7 +345,7 @@
             // =============================================
 
             document.getElementById('student').textContent = data.student || '';
-            document.getElementById('phone').textContent   = data.phone   || '';
+            document.getElementById('phone').textContent   = data.phone   || 'غير محدد';
             document.getElementById('grade').textContent   = data.grade   || '';
             document.getElementById('unit').textContent    = data.unit    || '';
             document.getElementById('lesson').textContent  = data.lesson  || '';
@@ -397,7 +397,56 @@
 
                 wrongHtml += '</div>';
 
-                // ✅ إضافة تنبيه + زر طلب الأخطاء من المعلم
+                // =============================================
+                // ✅ زر إرسال الأخطاء للطالب مباشرة
+                // =============================================
+                const studentPhone = data.phone || '';
+                
+                if (studentPhone && studentPhone.length >= 10) {
+                    
+                    // بناء رسالة الأخطاء للطالب
+                    let studentMessage = '📋 تصحيح الأخطاء\n\n';
+                    studentMessage += '📖 المادة: ' + (data.subject || '') + '\n';
+                    studentMessage += '📚 الصف: ' + (data.grade || '') + '\n';
+                    studentMessage += '📖 الوحدة: ' + (data.unit || '') + '\n';
+                    studentMessage += '📝 الدرس: ' + (data.lesson || '') + '\n\n';
+                    studentMessage += '👤 الطالب: ' + (data.student || '') + '\n\n';
+                    studentMessage += '🏆 الدرجة: ' + (data.score || 0) + ' من ' + (data.total || 0) + '\n';
+                    studentMessage += '📈 النسبة: ' + (data.percent || 0) + '%\n';
+                    studentMessage += '⏱️ الوقت المستغرق: ' + (data.time || '') + '\n\n';
+                    studentMessage += '━━━━━━━━━━━━━━━━━━━\n\n';
+                    studentMessage += '❌ الأخطاء وتصحيحها:\n\n';
+
+                    data.wrongQuestions.forEach(function (q, index) {
+                        studentMessage += 'سؤال ' + (index + 1) + ':\n';
+                        studentMessage += '📝 ' + (q.question || '') + '\n\n';
+                        studentMessage += '❌ إجابتك: ' + (q.studentAnswer || '') + '\n';
+                        studentMessage += '✅ الإجابة الصحيحة: ' + (q.correctAnswer || '') + '\n';
+                        studentMessage += '\n━━━━━━━━━━━━━━━━━━━\n\n';
+                    });
+
+                    studentMessage += '🕐 التاريخ:\n' + (data.date || '') + '\n\n';
+                    studentMessage += '👨‍🏫 إعداد:\nالمهندس / أشرف موسى\n\n';
+                    studentMessage += '📞 للتواصل:\n01110547129 - 01100429783';
+
+                    const sendToStudentLink = 'https://wa.me/' + studentPhone + '?text=' + encodeURIComponent(studentMessage);
+
+                    wrongHtml +=
+                        '<div class="status success" style="margin-top:20px;text-align:center;padding:20px;">' +
+                        '<h3 style="margin-bottom:10px;">📱 إرسال الأخطاء للطالب</h3>' +
+                        '<p style="margin-bottom:15px;color:#065f46;">اضغط الزر التالي لإرسال تصحيح الأخطاء مباشرة للطالب عبر واتساب:</p>' +
+                        '<a href="' + sendToStudentLink + '" target="_blank" class="request-btn" style="background:#25D366;">' +
+                        '📤 إرسال الأخطاء للطالب (' + studentPhone + ')' +
+                        '</a>' +
+                        '</div>';
+                } else {
+                    wrongHtml +=
+                        '<div class="status warning" style="margin-top:15px;text-align:center;">' +
+                        '⚠️ لم يتم العثور على رقم واتساب الطالب.' +
+                        '</div>';
+                }
+
+                // ✅ إضافة تنبيه + زر طلب الأخطاء من المعلم (إذا كان هناك أخطاء إضافية)
                 if (shownWrong < totalWrong) {
                     const teacherPhone = '201100429783';
                     const studentNameVal = data.student || 'طالب';

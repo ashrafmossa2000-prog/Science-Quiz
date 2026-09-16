@@ -596,8 +596,6 @@ function getCorrectScore() {
 
 /* ============================================================
    ✅ دالة بناء رابط التقرير
-   - نرسل أول 15 خطأ في الرابط (زيادة من 5 إلى 15)
-   - باقي الأخطاء تُرسل عبر رسالة واتساب النصية
    ============================================================ */
 function buildReportUrl() {
     const name = studentName || 'طالب';
@@ -605,13 +603,16 @@ function buildReportUrl() {
     const { gradeName, unitName, lessonName, subjectName } = getUnitAndLessonInfo();
     const elapsedTime = getElapsedTime();
 
-    // ✅ عدد الأخطاء المرسلة في الرابط (تمت زيادته إلى 15)
+    // ✅ استخدام localStorage مباشرة لضمان الحصول على الرقم
+    const savedPhone = localStorage.getItem('studentPhone') || studentPhoneNumber || '';
+
+    // ✅ عدد الأخطاء المرسلة في الرابط
     const MAX_WRONG_IN_URL = 25;
     const wrongForUrl = wrongQuestions.slice(0, MAX_WRONG_IN_URL);
 
     const reportData = {
         student: name,
-        phone: studentPhoneNumber,
+        phone: savedPhone,
         subject: subjectName,
         grade: gradeName,
         unit: unitName,
@@ -645,6 +646,7 @@ function buildReportUrl() {
     const reportUrl = REPORT_PAGE_URL + '?data=' + encodedData;
 
     console.log('🔗 طول رابط التقرير:', reportUrl.length, '| عدد الأخطاء الكلي:', wrongQuestions.length, '| عدد الأخطاء في الرابط:', wrongForUrl.length);
+    console.log('📱 رقم الطالب المحفوظ:', savedPhone);
 
     return { reportUrl, encodedData, reportData };
 }
@@ -659,6 +661,9 @@ function sendAnswers() {
     const { gradeName, unitName, lessonName, subjectName } = getUnitAndLessonInfo();
     const elapsedTime = getElapsedTime();
 
+    // ✅ استخدام localStorage مباشرة لضمان الحصول على الرقم
+    const savedPhone = localStorage.getItem('studentPhone') || studentPhoneNumber || 'غير محدد';
+
     const { reportUrl } = buildReportUrl();
 
     let message =
@@ -671,7 +676,7 @@ function sendAnswers() {
 📝 الدرس: ${lessonName}
 
 👤 الاسم: ${name}
-📱 رقم الواتساب: ${studentPhoneNumber}
+📱 رقم الواتساب: ${savedPhone}
 
 🏆 الدرجة: ${result.correct} من ${result.total}
 📈 النسبة: ${result.percent}%
@@ -708,6 +713,7 @@ function sendWrongQuestionsToStudent() {
         return;
     }
 
+    // ✅ استخدام localStorage مباشرة
     const savedPhone = localStorage.getItem('studentPhone') || studentPhoneNumber;
     
     if (!savedPhone || savedPhone.length < 10) {
@@ -771,6 +777,9 @@ function sendFullReportToTeacher() {
     const { gradeName, unitName, lessonName, subjectName } = getUnitAndLessonInfo();
     const elapsedTime = getElapsedTime();
 
+    // ✅ استخدام localStorage مباشرة
+    const savedPhone = localStorage.getItem('studentPhone') || studentPhoneNumber || 'غير محدد';
+
     let message = `📋 تقرير مفصل للاختبار
 
 📖 المادة: ${subjectName}
@@ -779,7 +788,7 @@ function sendFullReportToTeacher() {
 📝 الدرس: ${lessonName}
 
 👤 اسم الطالب: ${name}
-📱 رقم الواتساب: ${studentPhoneNumber}
+📱 رقم الواتساب: ${savedPhone}
 
 ━━━━━━━━━━━━━━━━━━━
 
